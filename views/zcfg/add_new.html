@@ -1,0 +1,48 @@
+<script  src="../assets/js/header.js"></script>
+<div class="layui-input-block layui-form" id="modifyClass"
+		lay-filter="updateClass" style="margin-top: 30px"">
+		<form class="layui-form" action="" lay-filter="example">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">年级</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" name="grade1" id="grade1"
+							placeholder="例：2016" readonly="true">
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">班级编号</label>
+				<div class="layui-input-inline">
+					<input type="text" name="classid1" required lay-verify="required" readonly="true"
+						placeholder="请输入班级编号" autocomplete="off" class="layui-input"
+						id="classid1">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">班级名称</label>
+				<div class="layui-input-inline">
+					<input type="text" name="classname1" id="classname1" required
+						lay-verify="required" placeholder="请输入班级名称" autocomplete="off"
+						class="layui-input">
+				</div>
+				<!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">专业</label>
+				<div class="layui-input-inline">
+					<select name="majorid" lay-verify="required" id="majorid1"
+						lay-filter="majorid1">
+						<option value="">请选择</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit="" lay-filter="enmodify">确认修改</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	 <script  src="../assets/js/footer.js"></script>

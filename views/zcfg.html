@@ -1,0 +1,261 @@
+<script  src="../assets/js/header.js"></script>
+    <title></title>
+</head>
+<body class="layui-view-body">
+    <div class="layui-content">
+        <div class="layui-row">
+
+            <div class="">
+		        <div class="layui-card">
+		          <div class="layui-card-header">政策法规数据操作</div>
+		          <div class="layui-card-body">
+		          <div class="layui-form layui-form-pane" >
+					    <div class="layui-form-item">
+							<div class="layui-inline">
+						      <label class="layui-form-label">文件级别</label>
+						      <div class="layui-input-inline">
+						        <select name="modules" lay-verify="required" lay-search="">
+						          <option value="">选择文件级别</option>
+						          <option value="1">省</option>
+						          <option value="2">市</option>
+						          <option value="3">县</option>
+						        </select>
+						      </div>
+						    </div>
+					    
+							<div class="layui-inline">
+						      <label class="layui-form-label">部门</label>
+						      <div class="layui-input-inline">
+						        <select name="modules" lay-verify="required" lay-search="">
+						          <option value="">选择部门</option>
+						          <option value="1">市场部</option>
+						        </select>
+						      </div>
+						    </div>
+					   
+							<div class="layui-inline">
+						      <label class="layui-form-label">起始时间</label>
+						      <div class="layui-input-inline">
+						        <input type="text" class="layui-input" id="qs" placeholder="年-月" readonly="readonly">
+						      </div>
+						    </div>
+						    <div class="layui-inline">
+						      <label class="layui-form-label">结束时间</label>
+						      <div class="layui-input-inline">
+						        <input type="text" class="layui-input" id="js" placeholder="年-月"  readonly="readonly">
+						      </div>
+						    </div>
+
+							<div class="xpl-dc-unpopup-btns layui-inline"><a id="xpl-unpopup-query330406110590616" class="layui-btn xpl-unpopup-query" ))="">查询</a></div>
+					    </div>
+
+					</div>
+		           <!--  <div class="layui-btn-group test-table-operate-btn" style="margin-bottom: 10px;">
+		              <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+		              <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+		              <button class="layui-btn" data-type="isAll">验证是否全选</button>
+		            </div> -->
+		            <div class="layui-btn-group test-table-operate-btn">
+					   <button type="button" class="layui-btn">新增</button>
+					</div>
+					<!-- <div class="layui-upload">
+					  <button type="button" class="layui-btn layui-btn-normal" id="xzwj">选择文件</button>
+					  <button type="button" class="layui-btn" id="kssc">开始上传</button>
+					</div> -->
+
+		            <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
+		            
+		            <script type="text/html" id="test-table-operate-barDemo">
+		             
+		              <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		              <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		            </script>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+        </div>
+    </div>
+    
+<script src="../assets/js/footer.js"></script>
+
+<script>
+
+  layui.use(['element', 'laydate','table','upload'], function(){
+    	var table = layui.table
+    	,admin = layui.element
+    	,laydate = layui.laydate
+    	,upload = layui.upload;
+
+    //选完文件后不自动上传
+	  upload.render({
+	    elem: '#xzwj'
+	    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+	    ,auto: false
+	    ,accept: 'file'
+	    //,multiple: true
+	    ,bindAction: '#kssc'
+	    ,done: function(res){
+	      layer.msg('上传成功');
+	      // console.log(res)
+	    }
+	  });
+		//年月选择器
+	  laydate.render({
+	    elem: '#qs'
+	    ,type: 'month'
+	  });
+	  laydate.render({
+	    elem: '#js'
+	    ,type: 'month'
+	  });
+    table.render({
+      elem: '#test-table-operate',
+      even:true,
+      done: function(res, curr, count){
+      	var that = this.elem.next();
+      	res.data.forEach(function(item,index){
+      		if(index % 2 ==0){
+      			var tr = that.find(".layui-table-box tbody tr[data-index='"+index+"']").css("background-color","#fff");
+      		}else{
+      			var tr = that.find(".layui-table-box tbody tr[data-index='"+index+"']").css("background-color","#f3faff");
+      		}
+      	})
+	    //如果是异步请求数据方式，res即为你接口返回的信息。
+	    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+	    // console.log(res);
+	    
+	    //得到当前页码
+	    // console.log(curr); 
+	    
+	    //得到数据总量
+	    // console.log(count);
+	  },
+      // ,url: '../assets/js/user.js'
+      // ,width: admin.screen() > 1 ? 892 : ''
+      // ,height: 332
+      cols: [[
+        // {type:'checkbox', fixed: 'left'}
+        {field:'id', width:80, title: 'ID'}
+        ,{field:'username', width:80, title: '用户名'}
+        ,{field:'sex', width:80, title: '性别'}
+        ,{field:'city', width:80, title: '城市'}
+        ,{field:'sign', width: 160, title: '签名'}
+        ,{field:'experience', width:80, title: '积分'}
+        ,{field:'wealth', width:135, title: '财富'}
+        ,{field:'classify', width:80, title: '职业'}
+        ,{field:'score', width:80, title: '评分'}
+        ,{width:178, align:'center', toolbar: '#test-table-operate-barDemo'}
+      ]]
+      ,page: true
+      ,"data":[{"id":1,"username":"user-1","sex":"男","city":"城市-1","sign":"签名-1","experience":884,"logins":58,"wealth":64928690,"classify":"词人","score":27},{"id":2,"username":"user-2","sex":"女","city":"城市-2","sign":"签名-2","experience":650,"logins":77,"wealth":6298078,"classify":"酱油","score":31},{"id":3,"username":"user-3","sex":"女","city":"城市-3","sign":"签名-3","experience":362,"logins":157,"wealth":37117017,"classify":"诗人","score":68},{"id":4,"username":"user-4","sex":"男","city":"城市-4","sign":"签名-4","experience":807,"logins":51,"wealth":76263262,"classify":"作家","score":6},{"id":5,"username":"user-5","sex":"女","city":"城市-5","sign":"签名-5","experience":173,"logins":68,"wealth":60344147,"classify":"作家","score":87},{"id":6,"username":"user-6","sex":"女","city":"城市-6","sign":"签名-6","experience":982,"logins":37,"wealth":57768166,"classify":"作家","score":34},{"id":7,"username":"user-7","sex":"男","city":"城市-7","sign":"签名-7","experience":727,"logins":150,"wealth":82030578,"classify":"作家","score":28},{"id":8,"username":"user-8","sex":"男","city":"城市-8","sign":"签名-8","experience":951,"logins":133,"wealth":16503371,"classify":"词人","score":14},{"id":9,"username":"user-9","sex":"女","city":"城市-9","sign":"签名-9","experience":484,"logins":25,"wealth":86801934,"classify":"词人","score":75},{"id":10,"username":"user-9","sex":"女","city":"城市-9","sign":"签名-9","experience":484,"logins":25,"wealth":86801934,"classify":"词人","score":75},{"id":11,"username":"user-1","sex":"男","city":"城市-1","sign":"签名-1","experience":884,"logins":58,"wealth":64928690,"classify":"词人","score":27},{"id":12,"username":"user-2","sex":"女","city":"城市-2","sign":"签名-2","experience":650,"logins":77,"wealth":6298078,"classify":"酱油","score":31},{"id":13,"username":"user-3","sex":"女","city":"城市-3","sign":"签名-3","experience":362,"logins":157,"wealth":37117017,"classify":"诗人","score":68},{"id":14,"username":"user-4","sex":"男","city":"城市-4","sign":"签名-4","experience":807,"logins":51,"wealth":76263262,"classify":"作家","score":6},{"id":15,"username":"user-5","sex":"女","city":"城市-5","sign":"签名-5","experience":173,"logins":68,"wealth":60344147,"classify":"作家","score":87},{"id":16,"username":"user-6","sex":"女","city":"城市-6","sign":"签名-6","experience":982,"logins":37,"wealth":57768166,"classify":"作家","score":34},{"id":17,"username":"user-7","sex":"男","city":"城市-7","sign":"签名-7","experience":727,"logins":150,"wealth":82030578,"classify":"作家","score":28},{"id":18,"username":"user-8","sex":"男","city":"城市-8","sign":"签名-8","experience":951,"logins":133,"wealth":16503371,"classify":"词人","score":14},{"id":19,"username":"user-9","sex":"女","city":"城市-9","sign":"签名-9","experience":484,"logins":25,"wealth":86801934,"classify":"词人","score":75}]
+    });
+    
+    //监听表格复选框选择
+    table.on('checkbox(test-table-operate)', function(obj){
+      console.log(obj)
+    });
+    //监听工具条
+    table.on('tool(test-table-operate)', function(obj){
+      var data = obj.data;
+      if(obj.event === 'detail'){
+        layer.msg('ID：'+ data.id + ' 的查看操作');
+      } else if(obj.event === 'del'){
+        layer.confirm('删除本行？', function(index){
+          obj.del();
+          layer.close(index);
+        });
+      } else if(obj.event === 'edit'){
+        layer.open({
+	    		type: 2
+	    		,title: "修改本条信息"
+	    		,area: ['40%', '60%']
+	    		,content: './zcfg_edit.html',
+	    		success: function(layero, index){
+	    			var body = layer.getChildFrame('body', index);
+	    		    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+	    		    // body.find('#classid1').val(data1.classid);
+	    		    // body.find('#classname1').val(data1.classname);
+	    		    // body.find('#grade1').val(data1.grade);
+	    		    
+	    		    //为弹框页面专业下拉框赋值
+	    		 //    $.ajax({
+	    			// 	url : '../../MajorFindAllServlet?deptid=5',
+	    			// 	dataType : 'json',
+	    			// 	data : {
+	    			// 		'state' : 0
+	    			// 	}, //查询状态为正常的所有机构类型
+	    			// 	type : 'post',
+	    			// 	success : function(data) {
+	    			// 		$.each(data, function(index, item) {
+	    			// 			if (item.majorid == data1.majorid) {
+	    			// 				body.find('#majorid1').append($("<option>").attr("value",item.majorid).attr("selected","selected").text(item.majorname));
+								// }else  {
+								// 	body.find('#majorid1').append($("<option>").attr("value",item.majorid).text(item.majorname));
+								// }
+	    			// 		});
+	    			// 		iframeWin.layui.form.render("select");
+	    			// 	}
+	    			// });
+	    		  }
+	    	 });
+      }
+    });
+    
+    var $ = layui.$, active = {
+      getCheckData: function(){ //获取选中数据
+        var checkStatus = table.checkStatus('test-table-operate')
+        ,data = checkStatus.data;
+        layer.alert(JSON.stringify(data));
+      }
+      ,getCheckLength: function(){ //获取选中数目
+        var checkStatus = table.checkStatus('test-table-operate')
+        ,data = checkStatus.data;
+        layer.msg('选中了：'+ data.length + ' 个');
+      }
+      ,isAll: function(){ //验证是否全选
+        var checkStatus = table.checkStatus('test-table-operate');
+        layer.msg(checkStatus.isAll ? '全选': '未全选')
+      }
+    };
+    
+    $('.test-table-operate-btn .layui-btn').on('click', function(){
+    	layer.open({
+	    		type: 2
+	    		,title: "新建一条"
+	    		,area: ['40%', '60%']
+	    		,content: './zcfg_add.html',
+	    		success: function(layero, index){
+	    			var body = layer.getChildFrame('body', index);
+	    		    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+	    		    // body.find('#classid1').val(data1.classid);
+	    		    // body.find('#classname1').val(data1.classname);
+	    		    // body.find('#grade1').val(data1.grade);
+	    		    
+	    		    //为弹框页面专业下拉框赋值
+	    		 //    $.ajax({
+	    			// 	url : '../../MajorFindAllServlet?deptid=5',
+	    			// 	dataType : 'json',
+	    			// 	data : {
+	    			// 		'state' : 0
+	    			// 	}, //查询状态为正常的所有机构类型
+	    			// 	type : 'post',
+	    			// 	success : function(data) {
+	    			// 		$.each(data, function(index, item) {
+	    			// 			if (item.majorid == data1.majorid) {
+	    			// 				body.find('#majorid1').append($("<option>").attr("value",item.majorid).attr("selected","selected").text(item.majorname));
+								// }else  {
+								// 	body.find('#majorid1').append($("<option>").attr("value",item.majorid).text(item.majorname));
+								// }
+	    			// 		});
+	    			// 		iframeWin.layui.form.render("select");
+	    			// 	}
+	    			// });
+	    		  }
+	    	 });
+      // var type = $(this).data('type');
+      // active[type] ? active[type].call(this) : '';
+    });
+  
+  });
+</script>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="assets/css/layui.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="icon" href="/favicon.ico">
+    <title>农村人居环境整治</title>
+    <style>
+        .layui-nav-side {
+            position: fixed;
+            top: 80px;
+        }
+        .layui-header{background-color: #002140;    height: 79px;padding-top: 1px;}
+        .layui-nav{
+            background-color: #002140;
+        }
+        .custom-header .layui-nav, .custom-header .layui-nav .layui-nav-item a {
+            color: #fff;
+        }
+        .custom-header .layui-nav .layui-nav-item .layui-nav-child a{
+            color:#002140;
+        }
+        .custom-logo{
+            width: 722px;
+            height: 46px;
+            background: url(./assets/images/title.png) no-repeat center;
+            background-color: #002140;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+    <div class="layui-header custom-header">
+
+            <div class="custom-logo ">
+                <!-- <img src="assets/images/logo.png" alt=""/> -->
+                <h1></h1>
+            </div>
+         
+
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理员</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">帮助中心</a></dd>
+                        <dd><a href="login.html">退出</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+    <div class="layui-layout layui-layout-admin">
+        
+        
+
+        <div class="layui-side custom-admin">
+            <div class="layui-side-scroll">
+
+                
+                <ul id="Nav" class="layui-nav layui-nav-tree layui-nav-side">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe60a;</i>
+                            <em>政策法规</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/zcfg.html">政策法规</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe62a;</i>
+                            <em>村庄概况</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/czgk.html">村庄概况</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe667;</i>
+                            <em>消息通知</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/xxtz.html">消息通知</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe615;</i>
+                            <em>综合查询</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/zhcx_lj.html">农村生活垃圾治理</a></dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/zhcx_ws.html">农村生活污水治理</a></dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/zhcx_cr.html">村容村貌管理</a></dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/zhcx_zy.html">农业生产废弃物资源化</a></dd>
+                        </dl>
+
+                    </li>
+                    
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe629;</i>
+                            <em>统计分析</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/tjfx_lj.html">农村生活垃圾治理</a></dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/tjfx_ws.html">农村生活污水治理</a></dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/tjfx_cr.html">村容村貌管理</a></dd>
+                        </dl>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/tjfx_zy.html">农业生产废弃物资源化</a></dd>
+                        </dl>
+
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe64a;</i>
+                            <em>一张图</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/yzt.html">一张图</a></dd>
+                        </dl>
+                    </li>
+                    <!-- 农户反馈 -->
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe645;</i>
+                            <em>农户反馈</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/nhfk.html">农户反馈</a></dd>
+                        </dl>
+                    </li>
+                    <!-- 操作日志 -->
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe63c;</i>
+                            <em>操作日志</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/czrz.html">操作日志</a></dd>
+                        </dl>
+                    </li>
+                    <!-- 操作日志 -->
+
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe857;</i>
+                            <em>农村生活垃圾治理</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/form.html">垃圾处理等管理制度</a></dd>
+                            <dd><a href="views/operate.html">基础数据库</a></dd>
+                            <dd><a href="views/form2.html">工作监管</a></dd>
+                     
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                 
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe636;</i>
+                            <em>农村生活污水治理</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/users.html">生活污水排放情况</a></dd>
+                            <dd><a href="views/operaterule.html">在线实时监测</a></dd>
+                            <dd><a href="views/operaterule.html">监测指标</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe7ae;</i>
+                            <em>农业生产废弃物资源化</em>
+                        </a>
+                        
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/users.html">畜禽粪污综合利用</a></dd>
+                            <dd><a href="views/operaterule.html">农作物秸秆综合利用</a></dd>
+                            <dd><a href="views/operaterule.html">废旧农膜回收</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                 
+                        <a href="javascript:;">
+                            <i class="layui-icon">&#xe62e;</i>
+                            <em>村容村貌管理</em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="views/users.html">村庄清洁</a></dd>
+                            <dd><a href="views/operaterule.html">道路绿化</a></dd>
+                            <dd><a href="views/operaterule.html">道路硬化</a></dd>
+                            <dd><a href="views/operaterule.html">美丽庭院</a></dd>
+                            <dd><a href="views/operaterule.html">爱国卫生运动</a></dd>
+                        </dl>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="layui-body">
+             <div class="layui-tab app-container layui-show" lay-allowClose="true" lay-filter="tabs">
+                <!-- <ul id="appTabs" class="layui-tab-title layui-breadcrumb"></ul> -->
+                <ul id="appTabs" class="layui-tab-title custom-tab layui-hide"></ul>
+                <div id="appTabPage" class="layui-tab-content">
+                       <ul class="layui-nav layui-layout-left">
+                            <li class="layui-nav-item slide-sidebar" lay-unselect>
+                                <a href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></a>
+                            </li>
+                        </ul>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-footer">
+            <p><a href="#" target="_blank">农村人居环境整治综合信息平台</a></p>
+        </div>
+
+        <div class="mobile-mask"></div>
+    </div>
+    <script src="assets/layui.js"></script>
+    <script src="index.js" data-main="home"></script>
+
+
+</body>
+</html>

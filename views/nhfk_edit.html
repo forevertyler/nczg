@@ -1,0 +1,114 @@
+<!-- 政策法规修改 -->
+<script  src="../assets/js/header.js"></script>
+<style>
+.layui-form-label span{
+	color: #f56c6c;
+}	
+</style>
+<div class="layui-input-block layui-form" id="modifyClass"
+		lay-filter="updateClass" style="margin-top: 30px"">
+		<form class="layui-form" action="" lay-filter="example">
+		
+<!-- 		<div class="layui-form-item">
+	      <label class="layui-form-label">部门</label>
+	      <div class="layui-input-inline">
+	        <select name="modules" lay-verify="required" lay-search="">
+	          <option value="">选择部门</option>
+	          <option value="1">市场部</option>
+	        </select>
+	      </div>
+	    </div> -->
+
+	    <div class="layui-form-item">
+		    <div class="layui-inline">
+			    <label class="layui-form-label"><span>*</span>户主姓名</label>
+			    <div class="layui-input-inline">
+			      <input type="text" name="username" lay-verify="required"  autocomplete="off" class="layui-input" id="bm" value="user-7" disabled="">
+			    </div>
+			 </div>
+		<!-- </div>
+		<div class="layui-form-item"> -->
+			<div class="layui-inline"> 
+			    <label class="layui-form-label"><span>*</span>身份证号</label>
+			    <div class="layui-input-inline">
+			      <input type="text" name="username" lay-verify="required"  autocomplete="off" class="layui-input" id="bm" value="370XXXXXXXxxxx" disabled="">
+			    </div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+			    <label class="layui-form-label"><span>*</span>满意度</label>
+			    <div class="layui-input-block">
+			      <input type="radio" name="manyidu" value="满意" title="满意" disabled="" checked="">
+			      <input type="radio" name="manyidu" value="一般" title="一般" disabled="">
+			      <input type="radio" name="manyidu" value="不满意" title="不满意" disabled="">
+			    </div>
+			</div>
+		</div>
+	<!-- 	<div class="layui-form-item">
+			<div class="layui-inline">
+			    <label class="layui-form-label"><span>*</span>施工评分</label>
+			    <div id="test1" class="layui-input-block"></div>
+			</div>
+		</div> -->
+
+	   <!--  <div class="layui-form-item">
+	      <label class="layui-form-label">附件上传</label>
+	      <div class="layui-input-inline">
+	        <button type="button" class="layui-btn" id="sc"><i class="layui-icon"></i>选择文件</button>
+	      </div>
+	    </div> -->
+
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button id="xg" class="layui-btn" lay-submit="" lay-filter="enmodify">取消</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	 <script  src="../assets/js/footer.js"></script>
+<script>
+ layui.use(['element', 'table', 'rate'], function(){
+    var table = layui.table
+    ,upload = layui.upload
+    ,rate = layui.rate
+    ,$ = layui.$
+    ,admin = layui.element;
+
+    
+ //再执行关闭
+//评分
+// rate.render({
+//   elem: '#test1'
+//   ,setText: function(value){
+//     var arrs = {
+//       '1': '极差'
+//       ,'2': '差'
+//       ,'3': '中等'
+//       ,'4': '好'
+//     };
+//     this.span.text(arrs[value] || ( value + "星"));
+//   }
+// });
+    //指定允许上传的文件类型
+  // upload.render({
+  //   elem: '#sc'
+  //   ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+  //   ,auto: false
+  //   ,accept: 'file' //普通文件
+  //   ,bindAction: '#xg'
+  //   ,done: function(res){
+  //     layer.msg('上传成功');
+     
+  //     console.log(res);
+  //   }
+  // });
+  $(document).on('click', '#xg',
+    function() {
+		var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        //parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新
+        parent.layer.close(index); //再执行关闭
+	   
+    });
+})
+</script>

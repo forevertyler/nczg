@@ -1,0 +1,91 @@
+<!-- 政策法规修改 -->
+<script  src="../assets/js/header.js"></script>
+<div class="layui-input-block layui-form" id="modifyClass"
+		lay-filter="updateClass" style="margin-top: 30px"">
+		<form class="layui-form" action="" lay-filter="example">
+			<div class="layui-form-item">
+	      <label class="layui-form-label">文件级别</label>
+	      <div class="layui-input-inline">
+	        <select name="modules" lay-verify="required" lay-search="" autocomplete="off" id="wjjb">
+	          <option value="">选择文件级别</option>
+	          <option value="1">省</option>
+	          <option value="2">市</option>
+	          <option value="3">县</option>
+	        </select>
+	      </div>
+	    </div>
+    	
+<!-- 		<div class="layui-form-item">
+	      <label class="layui-form-label">部门</label>
+	      <div class="layui-input-inline">
+	        <select name="modules" lay-verify="required" lay-search="">
+	          <option value="">选择部门</option>
+	          <option value="1">市场部</option>
+	        </select>
+	      </div>
+	    </div> -->
+
+	    <div class="layui-form-item">
+		    <label class="layui-form-label">部门</label>
+		    <div class="layui-input-inline">
+		      <input type="text" name="username" lay-verify="required" placeholder="请输入部门" autocomplete="off" class="layui-input" autocomplete="off" id="bm">
+		    </div>
+		</div>
+
+	    <div class="layui-form-item">
+	      <label class="layui-form-label">附件上传</label>
+	      <div class="layui-input-inline">
+	        <button type="button" class="layui-btn" id="sc"><i class="layui-icon"></i>选择文件</button>
+	      </div>
+	    </div>
+
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button id="xg" class="layui-btn" lay-submit="" lay-filter="enmodify">确认修改</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	 <script  src="../assets/js/footer.js"></script>
+<script>
+ layui.use(['element', 'table'], function(){
+    var table = layui.table
+    ,upload = layui.upload
+    ,$ = layui.$
+    ,admin = layui.element;
+
+    
+ //再执行关闭
+
+
+    //指定允许上传的文件类型
+  upload.render({
+    elem: '#sc'
+    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+    ,auto: false
+    ,accept: 'file' //普通文件
+    ,bindAction: '#xg'
+    ,done: function(res){
+      layer.msg('上传成功');
+     
+      console.log(res);
+    }
+  });
+  $(document).on('click', '#xg',
+    function() {
+    	var bm = $('#bm').val();
+    	var wjjb = $('#wjjb option:selected') .val();
+    	// alert(wjjb + 111+ bm)
+    	if (wjjb !== "" && bm !== "") {
+    
+    		var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	        //parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新
+	        parent.layer.close(index); //再执行关闭
+	        
+		}else{
+		
+			
+		}
+    });
+})
+</script>

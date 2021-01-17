@@ -1,0 +1,157 @@
+<script  src="../assets/js/header.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+    <title></title>
+    <style>
+#left1,#center1{width:602px;height:265px;}
+    </style>
+</head>
+<body class="layui-view-body">
+    <div class="layui-content">
+        <div class="layui-row">
+        
+            <div class="layui-col-md6">
+				<div class="layui-card">
+					<div class="layui-card-header">各渠道受理占比</div>
+					<div class="layui-card-body">
+						<div id="left1"></div>
+					</div>
+				</div>
+
+				<div class="layui-card">
+					<div class="layui-card-header">烟台地图</div>
+					<div class="layui-card-body">
+						<div id="center1"></div>
+					</div>
+				</div>
+
+
+			</div>
+            
+        </div>
+    </div>
+<script src="../assets/js/footer.js"></script>
+
+<script type="text/javascript" src="../assets/js/echarts.js"></script>
+<script type="text/javascript" src="../assets/js/countUp.min.js"></script>
+<script type="text/javascript" src="../assets/js/theme.js"></script>
+<script>
+layui.use(['table','element'], function(){
+	var table = layui.table
+	,$ = layui.$;
+	var element = layui.element;
+	// var $ = layui.$;
+	// 右1
+    var left1tuChart = echarts.init(document.getElementById('left1'));
+    left1 = {
+        title : {
+            show: false,
+            text: '',
+            x: 25,
+            y: 15,
+            textStyle: {
+                color: '#fff',
+                fontWeight:'normal',
+                fontSize: fsA
+            }
+        },
+        color: themes[10],
+        tooltip : {
+            trigger: 'item',
+            formatter: "{b} : <br/>{c} ({d}%)"
+        },
+        legend: {
+            show: true,
+            top: 30,
+            right: 40,
+            itemWidth: 14,
+            itemGap: 20,
+            orient: 'vertical',
+            textStyle: {
+                color: themes[10]
+            },
+            data: ['12345', '12315', '有问有答', '来信', '其他']
+        },
+        series : [
+            {
+                name: '',
+                type: 'pie',
+                radius : ['20%','55%'],
+                center: ['40%', '50%'],
+                roseType: 'area',
+                data:[
+                    {value:30, name:'12345'},
+                    {value:35, name:'12315'},
+                    {value:40, name:'有问有答'},
+                    {value:25, name:'来信'},
+                    {value:25, name:'其他'}
+                ],
+                label:{
+                    show:true,
+                    position:'outside',
+                    formatter: '{b} {d}%',
+                    textStyle: {
+                        fontSize: 14
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        labelLine: {
+                            length: 10
+                        }
+                    }
+                }
+            }
+        ]
+    };
+    left1tuChart.setOption(left1);
+
+    // 定时自动高亮
+    pieAutoMouse(left1,left1tuChart,3500);
+
+
+
+
+    var center1tuChart = echarts.init(document.getElementById('center1'));
+    // center1 = {
+
+    	$.getJSON("../assets/js/yt.json", function(geoJson) {//#1
+			echarts.registerMap('烟台', geoJson);//#2
+			let option = {
+				series: [
+					{
+						name: '烟台地图',
+						type: 'map',
+						mapType: '烟台',//#3
+						itemStyle:{
+							normal: {
+                                label: {
+                                    show: false,//默认是否显示省份名称    
+                                },
+
+								areaColor:"#ccebeb",//默认的地图板块颜色
+                              
+                                borderWidth:1,
+                                borderColor:'#1ea0a0',
+                            },
+						    emphasis: {
+                                label: {
+                                    show: false,//选中状态是否显示省份名称
+                                },
+                                areaColor:"#4cc1f6",//选中状态的地图板块颜色
+                                
+                            },
+						},
+						// data:[{name: '南京', value: 100}],//#4
+						// nameMap: {'南京市': '南京'}//#5
+					}
+				]
+			}
+			center1tuChart.setOption(option);
+		})
+    // }
+    // center1tuChart.setOption(center1);
+
+    // // 定时自动高亮
+    // pieAutoMouse(center1,center1tuChart,3500);
+})
+</script>
