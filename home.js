@@ -171,14 +171,22 @@ layui.define(['element','layer'],function(exports){
         //     }
         // })
 
-        // if(isMobile()){
-        //     $mobileMask.click(function(){
-        //         $slideSidebar.trigger('click');
-        //     });
-        // }
+        if(isMobile()){
+            $mobileMask.click(function(){
+                $slideSidebar.trigger('click');
+            });
+        }
     }
 
     exports('home',new Home);
+    var sWith=$(window).width();
+    if(sWith<=800){
+        $("#navtop").removeClass("layui-layout-right")
+        $("#mzy").show()
+    }else if(sWith>800){
+        $("#navtop").addClass("layui-layout-right")
+        $("#mzy").hide()
+    }
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
 //         layui.use('element', function(){
 //             var element = layui.element;

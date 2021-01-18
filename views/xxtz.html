@@ -1,15 +1,197 @@
 <script  src="../assets/js/header.js"></script>
-    <title></title>
+    <title>消息通知</title>
+    <style>
+		.hilite
+		{ 
+		    background-color: #fff;  
+		}
+    </style>
 </head>
 <body class="layui-view-body">
     <div class="layui-content">
         <div class="layui-row">
         
-            这里是展示内容区
+            <div class="">
+		        <div class="layui-card">
+		          <div class="layui-card-header">消息通知</div>
+		          <div class="layui-card-body">
+		          <div class="layui-form layui-form-pane" >
+					    <div class="layui-form-item">
+						
+					    
+							<div class="layui-inline">
+						      <label class="layui-form-label">关键字</label>
+						      <div class="layui-input-inline">
+						        <input type="text" name="title" lay-verify="title" autocomplete="on" placeholder="请输入关键字" class="layui-input">
+						      </div>
+						    </div>
+					   
+							<div class="layui-inline">
+						      <label class="layui-form-label">起始时间</label>
+						      <div class="layui-input-inline">
+						        <input type="text" class="layui-input" id="qs" placeholder="年-月" readonly="readonly">
+						      </div>
+						    </div>
+						    <div class="layui-inline">
+						      <label class="layui-form-label">结束时间</label>
+						      <div class="layui-input-inline">
+						        <input type="text" class="layui-input" id="js" placeholder="年-月"  readonly="readonly">
+						      </div>
+						    </div>
+
+							<div class="xpl-dc-unpopup-btns layui-inline"><a id="xpl-unpopup-query330406110590616" class="layui-btn xpl-unpopup-query" ))="">查询</a></div>
+					    </div>
+
+					</div>
+		  
+
+		            <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
+		            
+		            <script type="text/html" id="test-table-operate-xiangqing">
+		             
+		              <!-- <a class="layui-btn layui-btn-xs" lay-event="xiangqing">详情</a> -->
+		            
+		            </script>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
             
         </div>
     </div>
 <script src="../assets/js/footer.js"></script>
 <script>
- var element = layui.element;
+
+  layui.use(['element', 'laydate','table','upload'], function(){
+    	var table = layui.table
+    	,admin = layui.element
+    	,laydate = layui.laydate
+    	,upload = layui.upload;
+
+    //选完文件后不自动上传
+	  upload.render({
+	    elem: '#xzwj'
+	    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+	    ,auto: false
+	    ,accept: 'file'
+	    //,multiple: true
+	    ,bindAction: '#kssc'
+	    ,done: function(res){
+	      layer.msg('上传成功');
+	      // console.log(res)
+	    }
+	  });
+		//年月选择器
+	  laydate.render({
+	    elem: '#qs'
+	    ,type: 'month'
+	  });
+	  laydate.render({
+	    elem: '#js'
+	    ,type: 'month'
+	  });
+    table.render({
+      elem: '#test-table-operate',
+      even:true,
+      done: function(res, curr, count){
+      	var that = this.elem.next();
+      	res.data.forEach(function(item,index){
+      		if(index % 2 ==0){
+      			var tr = that.find(".layui-table-box tbody tr[data-index='"+index+"']").css("background-color","#fff");
+      		}else{
+      			var tr = that.find(".layui-table-box tbody tr[data-index='"+index+"']").css("background-color","#f3faff");
+       		}
+      	})
+  
+	
+	  },
+    
+      cols: [[
+        // {type:'checkbox', fixed: 'left'}
+        {field:'id', align:'center', width:80, title: 'ID'}
+        ,{field:'username', align:'center', width:180, title: '户主姓名'}
+        ,{field:'idcardno', align:'center', width:380, title: '身份证号'}
+        ,{field:'myd', align:'center', width:80, title: '满意度'}
+        ,{field:'sign', align:'center', width: 160, title: '施工评分'}
+        ,{field:'experience', align:'center', width:160, title: '效果评分'}
+        ,{field:'wealth', align:'center', width:135, title: '反馈意见'}
+        ,{field:'score', align:'center', width:180, title: '改造后图片'}
+        ,{field:'classify', align:'center', width:80, title: '操作' ,toolbar: '#test-table-operate-xiangqing'}
+        // ,{width:178, align:'center', toolbar: '#test-table-operate-barDemo'}
+      ]]
+      ,page: true
+      ,"data":[{"id":1,"username":"user-1","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"1","experience":4,"logins":58,"wealth":64928690,"score":27},{"id":2,"username":"user-2","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"2","experience":0,"logins":77,"wealth":6298078,"score":31},{"id":3,"username":"user-3","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"3","experience":2,"logins":157,"wealth":37117017,"score":68},{"id":4,"username":"user-4","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"4","experience":7,"logins":51,"wealth":76263262,"score":6},{"id":5,"username":"user-5","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"5","experience":3,"logins":68,"wealth":60344147,"score":87},{"id":6,"username":"user-6","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"6","experience":2,"logins":37,"wealth":57768166,"score":34},{"id":7,"username":"user-7","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"7","experience":7,"logins":150,"wealth":82030578,"score":28},{"id":8,"username":"user-8","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"8","experience":1,"logins":133,"wealth":16503371,"score":14},{"id":9,"username":"user-9","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"9","experience":4,"logins":25,"wealth":86801934,"score":75},{"id":10,"username":"user-9","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"9","experience":4,"logins":25,"wealth":86801934,"score":75},{"id":11,"username":"user-1","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"1","experience":4,"logins":58,"wealth":64928690,"score":27},{"id":12,"username":"user-2","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"2","experience":0,"logins":77,"wealth":6298078,"score":31},{"id":13,"username":"user-3","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"3","experience":2,"logins":157,"wealth":37117017,"score":68},{"id":14,"username":"user-4","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"4","experience":7,"logins":51,"wealth":76263262,"score":6},{"id":15,"username":"user-5","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"5","experience":3,"logins":68,"wealth":60344147,"score":87},{"id":16,"username":"user-6","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"6","experience":2,"logins":37,"wealth":57768166,"score":34},{"id":17,"username":"user-7","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"7","experience":7,"logins":150,"wealth":82030578,"score":28},{"id":18,"username":"user-8","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"8","experience":1,"logins":133,"wealth":16503371,"score":14},{"id":19,"username":"user-9","idcardno":"370XXXXXXXxxxx","myd":"满意","sign":"9","experience":4,"logins":25,"wealth":86801934,"score":75}]
+    });
+    
+    //监听表格复选框选择
+    table.on('checkbox(test-table-operate)', function(obj){
+      console.log(obj)
+    });
+    //监听工具条
+    table.on('tool(test-table-operate)', function(obj){
+      var data = obj.data;
+      if(obj.event === 'detail'){
+        layer.msg('ID：'+ data.id + ' 的查看操作');
+      } else if(obj.event === 'del'){
+        layer.confirm('删除本行？', function(index){
+          obj.del();
+          layer.close(index);
+        });
+      } else if(obj.event === 'xiangqing'){
+        layer.open({
+	    		type: 2
+	    		,title: "修改本条信息"
+	    		,area: ['50%', '80%']
+	    		,content: './nhfk_edit.html',
+	    		success: function(layero, index){
+	    			var body = layer.getChildFrame('body', index);
+	    		    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+	    		    // body.find('#classid1').val(data1.classid);
+	    		    // body.find('#classname1').val(data1.classname);
+	    		    // body.find('#grade1').val(data1.grade);
+	    		    
+	    		    //为弹框页面专业下拉框赋值
+	    		 //    $.ajax({
+	    			// 	url : '../../MajorFindAllServlet?deptid=5',
+	    			// 	dataType : 'json',
+	    			// 	data : {
+	    			// 		'state' : 0
+	    			// 	}, //查询状态为正常的所有机构类型
+	    			// 	type : 'post',
+	    			// 	success : function(data) {
+	    			// 		$.each(data, function(index, item) {
+	    			// 			if (item.majorid == data1.majorid) {
+	    			// 				body.find('#majorid1').append($("<option>").attr("value",item.majorid).attr("selected","selected").text(item.majorname));
+								// }else  {
+								// 	body.find('#majorid1').append($("<option>").attr("value",item.majorid).text(item.majorname));
+								// }
+	    			// 		});
+	    			// 		iframeWin.layui.form.render("select");
+	    			// 	}
+	    			// });
+	    		  }
+	    	 });
+      }
+    });
+    
+    var $ = layui.$, active = {
+      getCheckData: function(){ //获取选中数据
+        var checkStatus = table.checkStatus('test-table-operate')
+        ,data = checkStatus.data;
+        layer.alert(JSON.stringify(data));
+      }
+      ,getCheckLength: function(){ //获取选中数目
+        var checkStatus = table.checkStatus('test-table-operate')
+        ,data = checkStatus.data;
+        layer.msg('选中了：'+ data.length + ' 个');
+      }
+      ,isAll: function(){ //验证是否全选
+        var checkStatus = table.checkStatus('test-table-operate');
+        layer.msg(checkStatus.isAll ? '全选': '未全选')
+      }
+    };
+    
+   
+  
+  });
 </script>

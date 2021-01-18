@@ -223,9 +223,10 @@
     	layer.open({
 	    		type: 2
 	    		,title: "新建一条"
-	    		,area: ['40%', '60%']
-	    		,content: './zcfg_add.html',
-	    		success: function(layero, index){
+	    		,area: ['70%', '50%']
+	    		,content: './zcfg_add.html'
+	    		,maxmin: true
+	    		,success: function(layero, index){
 	    			var body = layer.getChildFrame('body', index);
 	    		    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
 	    		    // body.find('#classid1').val(data1.classid);

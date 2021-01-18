@@ -1,15 +1,163 @@
 <script  src="../assets/js/header.js"></script>
-    <title></title>
+    <title>操作日志</title>
+    <style>
+		.hilite
+		{ 
+		    background-color: #fff;  
+		}
+    </style>
 </head>
 <body class="layui-view-body">
     <div class="layui-content">
         <div class="layui-row">
         
-            这里是展示内容区
+            <div class="">
+		        <div class="layui-card">
+		          <div class="layui-card-header">操作日志</div>
+		          <div class="layui-card-body">
+		          <div class="layui-form layui-form-pane" >
+					    <div class="layui-form-item">
+						
+					    
+							<div class="layui-inline">
+						      <label class="layui-form-label">姓名</label>
+						      <div class="layui-input-inline">
+						        <input type="text" name="name" id="name" placeholder="请输入角色名称" autocomplete="off" class="layui-input"> 
+						      </div>
+						    </div>
+					   
+							<!-- <div class="layui-inline">
+						      <label class="layui-form-label">操作</label>
+						      <div class="layui-input-inline">
+						        <input type="text" class="layui-input" id="qs" placeholder="年-月" readonly="readonly">
+						      </div>
+						    </div> -->
+						 <!--    <div class="layui-inline">
+						      <label class="layui-form-label">结束时间</label>
+						      <div class="layui-input-inline">
+						        <input type="text" class="layui-input" id="js" placeholder="年-月"  readonly="readonly">
+						      </div>
+						    </div> -->
+
+							<div class="layui-inline">
+							  
+							   <button type="reset" class="layui-btn layui-btn-primary face-btn">重置</button>
+							   <button class="layui-btn face-btn" id="queryRole" type="button" >搜索</button>
+								
+							</div>
+					    </div>
+
+					</div>
+		  
+
+		            <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
+		            
+		            <script type="text/html" id="test-table-operate-xiangqing">
+		             
+		              <!-- <a class="layui-btn layui-btn-xs" lay-event="xiangqing">详情</a> -->
+		            
+		            </script>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
             
         </div>
     </div>
 <script src="../assets/js/footer.js"></script>
 <script>
- var element = layui.element;
+
+  layui.use(['element','layer', 'laydate','table','upload'], function(){
+    	var $ = layui.$
+    	,$body = $('body')
+    	,table = layui.table
+    	,admin = layui.element
+    	,laydate = layui.laydate
+    	,upload = layui.upload
+    	,layer = layui.layer;
+
+    $('.test-table-operate-btn .layui-btn').on('click', function(){
+
+    	
+    })
+	 
+		
+	 
+    var tableIns=table.render({
+      elem: '#test-table-operate',
+      even:true,
+      done: function(res, curr, count){
+      	var that = this.elem.next();
+      	res.data.forEach(function(item,index){
+      		if(index % 2 ==0){
+      			var tr = that.find(".layui-table-box tbody tr[data-index='"+index+"']").css("background-color","#fff");
+      		}else{
+      			var tr = that.find(".layui-table-box tbody tr[data-index='"+index+"']").css("background-color","#f3faff");
+       		}
+      	})
+  
+	
+	  },
+    
+      cols: [[
+        // {type:'checkbox', fixed: 'left'}
+        {field:'id', align:'center', width:80, title: 'ID'}
+        ,{field:'name', align:'center', width:180, title: '姓名'}
+        ,{field:'idcardno', align:'center', width:180, title: '手机号'}
+        ,{field:'time', align:'center', width:180, title: '时间'}
+        ,{field:'sign', align:'center', width: 260, title: '地点'}
+        ,{field:'ipid', align:'center', width:260, title: 'IP地址'}
+        // ,{field:'wealth', align:'center', width:135, title: '反馈意见'}
+        // ,{field:'score', align:'center', width:180, title: '改造后图片'}
+        // ,{field:'classify', align:'center', width:80, title: '操作' ,toolbar: '#test-table-operate-xiangqing'}
+        // ,{width:178, align:'center', toolbar: '#test-table-operate-barDemo'}
+      ]]
+      ,page: true
+      ,"data":[
+      {"id":1,"name":"user-1","idcardno":"133xxxxxxxx","time":"2021-01-18","sign":"金财村","ipid":"47.125.125.1"}
+      
+      ,{"id":2,"name":"user-2","idcardno":"133xxxxxxxx","time":"2021-01-19","sign":"金财村","ipid":"47.125.125.1"}
+      ,{"id":3,"name":"user-3","idcardno":"133xxxxxxxx","time":"2021-01-18","sign":"金财村","ipid":"47.125.125.1"}
+      
+      ]
+    });
+    $('#queryRole').on('click', function(){
+        // debugger
+        tableIns.reload({
+            // page:{
+            //     curr:1
+            // },
+            where:{
+                name: $("input[name='name']").val()
+                // deleteFlag: $("select[name='delete_flag']").val()
+            }
+        })
+    });
+    
+    //监听表格复选框选择
+    table.on('checkbox(test-table-operate)', function(obj){
+      console.log(obj)
+    });
+    
+    
+    var $ = layui.$, active = {
+      getCheckData: function(){ //获取选中数据
+        var checkStatus = table.checkStatus('test-table-operate')
+        ,data = checkStatus.data;
+        layer.alert(JSON.stringify(data));
+      }
+      ,getCheckLength: function(){ //获取选中数目
+        var checkStatus = table.checkStatus('test-table-operate')
+        ,data = checkStatus.data;
+        layer.msg('选中了：'+ data.length + ' 个');
+      }
+      ,isAll: function(){ //验证是否全选
+        var checkStatus = table.checkStatus('test-table-operate');
+        layer.msg(checkStatus.isAll ? '全选': '未全选')
+      }
+    };
+    
+   
+  
+  });
 </script>
