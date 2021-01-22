@@ -81,6 +81,33 @@ layui.use(['table','element'], function(){
 var table = layui.table
     ,$ = layui.$;
     var element = layui.element;
+
+
+// 下拉选择
+$(".dropcnt").click(function(e){
+    var ulel = $(this).find("ul");
+    var ulshow = ulel.css("display");
+    $(".dropcnt ul").not(ulel).hide();
+    if(ulshow == "none"){
+        $(this).find("ul").slideDown(300);
+    }else{
+        $(this).find("ul").slideUp(300);
+    }
+    e.stopPropagation();
+});
+
+$(".dropcnt ul li").click(function(e){
+    var txt = $(this).text();
+    $(this).parent().siblings("span").text(txt);
+    $(".dropcnt ul").hide();
+    e.stopPropagation();
+});
+
+$(document).click(function(){
+    $(".dropcnt ul").hide();
+});
+
+
 $(".dropcnt1").click(function(e){
     var ulel = $(this).find("ul");
     var ulshow = ulel.css("display");
