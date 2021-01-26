@@ -29,13 +29,13 @@
 							<div class="layui-inline">
 						      <label class="layui-form-label">起始时间</label>
 						      <div class="layui-input-inline">
-						        <input type="text" class="layui-input" id="qs" placeholder="年-月" readonly="readonly">
+						        <input type="text" class="layui-input" id="qs" placeholder="年-月-日" readonly="readonly">
 						      </div>
 						    </div>
 						    <div class="layui-inline">
 						      <label class="layui-form-label">结束时间</label>
 						      <div class="layui-input-inline">
-						        <input type="text" class="layui-input" id="js" placeholder="年-月"  readonly="readonly">
+						        <input type="text" class="layui-input" id="js" placeholder="年-月-日"  readonly="readonly">
 						      </div>
 						    </div>
 
@@ -84,11 +84,11 @@
 		//年月选择器
 	  laydate.render({
 	    elem: '#qs'
-	    ,type: 'month'
+	    // ,format: 'yyyy年MM月dd日'
 	  });
 	  laydate.render({
 	    elem: '#js'
-	    ,type: 'month'
+	    // ,format: 'yyyy年MM月dd日'
 	  });
     table.render({
       elem: '#test-table-operate',

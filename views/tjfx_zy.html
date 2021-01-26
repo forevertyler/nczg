@@ -1,15 +1,282 @@
 <script  src="../assets/js/header.js"></script>
+<link rel="stylesheet" href="../assets/css/style.css">
     <title></title>
+    <style>
+        #left1,#center1,#cnt8tu{width:100%;height:300px;}
+        /*.bgg{background: #000;}*/
+        .bgg{
+            background: #002140;
+        }
+    </style>
+
 </head>
 <body class="layui-view-body">
     <div class="layui-content">
         <div class="layui-row">
-        
-            这里是展示内容区
+           
+            <div class="layui-col-md6">
+                <!-- cnt8 -->
+                 <div class="layui-card bgg main_cnt2">
+                    <div class=" layui-card-header">保洁员出勤率
+                    <div class="dropcnt ">
+                        <span>2020</span>
+                        <i>&or;</i>
+                        <ul>
+                            <li onclick="dropCnt8(2020)">2020</li>
+                            <li onclick="dropCnt8(2019)">2019</li>
+                        </ul>
+                    </div></div>
+                    <div class="layui-card-body">
+                        <div id="cnt8tu"></div>
+                    </div>
+                </div>
+
+
+			</div>
             
         </div>
     </div>
 <script src="../assets/js/footer.js"></script>
+
+<script type="text/javascript" src="../assets/js/echarts.js"></script>
+<script type="text/javascript" src="../assets/js/countUp.min.js"></script>
+<script type="text/javascript" src="../assets/js/theme.js"></script>
 <script>
- var element = layui.element;
+layui.use(['table','element'], function(){
+	var table = layui.table
+	,$ = layui.$;
+	var element = layui.element;
+	// var $ = layui.$;
+	// 右1
+   
+    
+    // cnt8
+    var cnt8tuChart = echarts.init(document.getElementById('cnt8tu'));
+    cnt8tu = {
+        title : {
+            show: false,
+            text: '',
+            x: 20,
+            y: 20,
+            textStyle: {
+                color: '#fff',
+                fontWeight:'normal',
+                fontSize: fsB
+            }
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {
+                type : 'shadow'
+            }
+        },
+        color: themes[6],
+        grid: {
+            left: 10,
+            right: 15,
+            bottom: 40,
+            top: 40,
+            containLabel: true,
+        },
+        legend: {
+            show: true,
+            top: 0,
+            right: 10,
+            itemWidth: 12,
+            itemHeight: 12,
+            itemGap: 5,
+            textStyle: {
+                fontSize: 12 ,
+                color: themes[6]
+            },
+            data: ['保洁员1','保洁员2','保洁员3','保洁员4','保洁员5','保洁员6','保洁员7','保洁员8']
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ['2020-01','2020-02','2020-03','2020-04','2020-05','2020-06','2020-07','2020-08','2020-09','2020-10','2020-11','2020-12'],
+                axisLabel:{
+                    color: corT,
+                    fontSize:14
+                },
+                axisLine:{
+                    lineStyle:{
+                        color: corL
+                    }
+                },
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                minInterval:50,
+                axisLabel:{
+                    color: corT,
+                    fontSize:14,
+                },axisLine:{
+                    lineStyle:{
+                        color: corL
+                    }
+                },splitLine: {
+                    show:true,
+                    lineStyle:{
+                        type:'solid',
+                        width: 1,
+                        color: corL
+                    }
+                }
+            }
+        ],
+        dataZoom: [{
+            type: 'inside',
+            startValue: 8,
+            endValue: 11,
+        }, {
+            handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            handleSize: '80%',
+            textStyle: {
+                color: '#333'
+            },
+            handleStyle: {
+                color: '#fff',
+                shadowBlur: 3,
+                shadowColor: 'rgba(0, 0, 0, 0.6)',
+                shadowOffsetX: 2,
+                shadowOffsetY: 2
+            }
+        }],
+        series : [
+            {
+                name:'保洁员1',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]
+            },{
+                name:'保洁员2',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [60, 120, 130, 90, 60, 80,60, 120, 130, 90, 60, 120]
+            },{
+                name:'保洁员3',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [150, 120, 90, 50, 120, 150,150, 120, 90, 50, 120, 60]
+            },{
+                name:'保洁员4',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [120, 90, 160, 100, 90, 60,120, 90, 160, 100, 90, 60]
+            },{
+                name:'保洁员5',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [150, 50, 150, 50, 160, 120,150, 50, 150, 50, 160, 80]
+            },{
+                name:'保洁员6',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [100, 40, 80, 120, 100, 130,100, 40, 80, 120, 100, 120]
+            },{
+                name:'保洁员7',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [160, 90, 50, 150, 100, 90,160, 90, 50, 150, 100, 80]
+            },{
+                name:'保洁员8',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]
+            }
+        ]
+    };
+    cnt8tuChart.setOption(cnt8tu);
+ dropCnt8 = function (cls){ 
+    // function dropCnt8(cls){
+        var dates = [];
+        var datas = [];
+        if(cls == 2020){
+            dates = ['2020-01','2020-02','2020-03','2020-04','2020-05','2020-06','2020-07','2020-08','2020-09','2020-10','2020-11','2020-12'];
+            datas = [
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+            ];
+        }else if(cls == 2019){
+            dates = ['2019-01','2019-02','2019-03','2019-04','2019-05','2019-06','2019-07','2019-08','2019-09','2019-10','2019-11','2019-12'];
+            datas = [
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+            ];
+        }
+        
+        cnt8tuChart.setOption({
+            xAxis: [{data: dates}],
+            series: datas
+        });
+        chartsReset(cnt8tuChart);
+    };
+
+})
 </script>

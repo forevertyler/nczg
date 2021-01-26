@@ -17,6 +17,15 @@ a:hover{text-decoration:none;}
 .main_cnt1{width:566px;height:400px;background-image:url(../img/cntbg1.png);background-repeat:no-repeat;background-size:100% 100%;background-position:center;overflow:hidden;position:absolute;z-index:99;}
 .main_cnt1 .toptit{width:100%;height:60px;line-height:60px;font-size:22px;color:#2de6fb;overflow:hidden;clear:both;}
 .main_cnt1 .toptit b{margin:0 20px;}
+.main_cnt2 .dropcnt{position:absolute;top:6px;right:15px;z-index:99;cursor:pointer;}
+.main_cnt2 .dropcnt span{display:block;width:80px;height:30px;padding-right:10px;line-height:30px;border-radius:4px;font-size:16px;color:#fff;text-align:center;background-color:#f60;}
+.main_cnt2 .dropcnt i{font-style:normal;font-size:14px;color:#fff;position:absolute;top:-5px;right:10px;z-index:999;transform:scale(1.2,0.8);}
+.main_cnt2 .dropcnt ul{width:100%;max-height:200px;background-color:#fff;border-radius:4px;overflow:hidden;overflow-y:auto;position:absolute;top:30px;left:0;z-index:99;display:none;}
+.main_cnt2 .dropcnt ul li{text-align:center;line-height:30px;font-size:14px;color:#333;}
+.main_cnt2 .dropcnt ul li:hover{background-color:#ddd;}
+.main_cnt2 .dropcnt ul::-webkit-scrollbar{width:4px;border-radius:6px;background-color:#ddd;}
+.main_cnt2 .dropcnt ul::-webkit-scrollbar-thumb{border-radius:6px;background-color:#f60;}
+
 .backcnt1 .left1{top:156px;left:70px;}
 .backcnt1 .left2{top:596px;left:70px;}
 .backcnt1 .center1{top:156px;left:677px;}
@@ -28,7 +37,7 @@ a:hover{text-decoration:none;}
 .main_cnt1 .scrollcnt::-webkit-scrollbar-thumb{border-radius:6px;background-color:#01d4e2;}
 
 .backcnt2{width:1920px;height:1080px;background-image:url(../img/back1.jpg);background-repeat:no-repeat;background-size:100% 100%;background-position:center;overflow:hidden;position:relative;}
-.main_cnt2{width:576px;height:400px;background-image:url(../img/cntbg2.png);background-repeat:no-repeat;background-size:100% 100%;background-position:center;overflow:hidden;position:absolute;z-index:99;}
+.main_cnt2{width:98%;height:400px;background-image:url(../img/cntbg2.png);background-repeat:no-repeat;background-size:100% 100%;background-position:center;overflow:hidden;}
 .main_cnt2 .toptit{width:100%;height:50px;line-height:50px;text-align:center;font-size:22px;color:#2de6fb;overflow:hidden;clear:both;}
 .main_cnt2 .toptit b{margin-right:25px;font-weight:normal;}
 .backcnt2 .left1{top:156px;left:60px;}

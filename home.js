@@ -84,7 +84,24 @@ layui.define(['element','layer'],function(exports){
     var Home = function(){
 
         var tabs = new Tab('tabs'), navItems = [];
-
+        var tabsT = new Tab('tabs'), navItemsT = [];
+        $('#navtop .xxtx a').on('click',function(event){
+            // console.log(event)
+            event.preventDefault();
+            var $this = $(this), url = $this.attr('href'),
+                title = $.trim($this.text());
+            if( url && url!=='javascript:;' ){
+                if(tabsT.is(url)){
+                    tabsT.change(url);
+                } else {
+                    navItemsT.push($this);
+                    tabsT.add(title, url);
+                }
+            }
+           
+            $this.parent().removeClass('layui-this')
+          
+        })
         
 
         $('#Nav a').on('click',function(event){
@@ -93,7 +110,7 @@ layui.define(['element','layer'],function(exports){
             event.preventDefault();
             var $this = $(this), url = $this.attr('href'),
                 title = $.trim($this.text());
-            console.log(navItems)
+            // console.log(navItems)
             if( url && url!=='javascript:;' ){
                 if(tabs.is(url)){
                     tabs.change(url);
@@ -115,8 +132,8 @@ layui.define(['element','layer'],function(exports){
         tabs.onChange(function(data){
             var i = data.index, $this = navItems[i];
             if($this && typeof $this === 'object') {
-                $('#Nav dd').removeClass('layui-this');
-                $this.parent('dd').addClass('layui-this');
+                // $('#Nav dd').removeClass('layui-this');
+                // $this.parent('dd').addClass('layui-this');
                 $this.closest('li.layui-nav-item')
                     .addClass('layui-nav-itemed')
                     .siblings()
@@ -125,12 +142,15 @@ layui.define(['element','layer'],function(exports){
         });
 
         tabs.onDelete(function(data){
-            console.log(data)
+            // console.log(data)
             var i = data.index;
             navItems.splice(i,1);
         });
 
         this.slideSideBar();
+
+
+
     }
 
     Home.prototype.slideSideBar = function() {

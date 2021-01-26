@@ -55,13 +55,10 @@
 		              <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
 		              <button class="layui-btn" data-type="isAll">验证是否全选</button>
 		            </div> -->
-		            <div class="layui-btn-group test-table-operate-btn">
+		            <!-- <div class="layui-btn-group test-table-operate-btn">
 					   <button type="button" class="layui-btn">新增</button>
-					</div>
-					<!-- <div class="layui-upload">
-					  <button type="button" class="layui-btn layui-btn-normal" id="xzwj">选择文件</button>
-					  <button type="button" class="layui-btn" id="kssc">开始上传</button>
 					</div> -->
+				
 
 		            <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
 		            
@@ -70,6 +67,7 @@
 		              <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 		              <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		            </script>
+
 		          </div>
 		        </div>
 		      </div>
@@ -166,10 +164,16 @@
           layer.close(index);
         });
       } else if(obj.event === 'edit'){
-        layer.open({
+      	var sWith=$(window).width();
+	    if(sWith<=800){
+	        layer.open({
 	    		type: 2
 	    		,title: "修改本条信息"
-	    		,area: ['40%', '60%']
+	    		,area: ['80%', '90%']
+	    		,maxmin: true
+	    		,moveType: 1
+	    		,offset: '3%'
+
 	    		,content: './zcfg_edit.html',
 	    		success: function(layero, index){
 	    			var body = layer.getChildFrame('body', index);
@@ -199,6 +203,46 @@
 	    			// });
 	    		  }
 	    	 });
+	    }else if(sWith>800){
+	    	layer.open({
+	    		type: 2
+	    		,title: "修改本条信息"
+	    		,area: ['40%', '90%']
+	    		,maxmin: true
+	    		// ,offset: '3%'
+
+	    		,content: './zcfg_edit.html',
+	    		success: function(layero, index){
+	    			var body = layer.getChildFrame('body', index);
+	    		    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+	    		    // body.find('#classid1').val(data1.classid);
+	    		    // body.find('#classname1').val(data1.classname);
+	    		    // body.find('#grade1').val(data1.grade);
+	    		    
+	    		    //为弹框页面专业下拉框赋值
+	    		 //    $.ajax({
+	    			// 	url : '../../MajorFindAllServlet?deptid=5',
+	    			// 	dataType : 'json',
+	    			// 	data : {
+	    			// 		'state' : 0
+	    			// 	}, //查询状态为正常的所有机构类型
+	    			// 	type : 'post',
+	    			// 	success : function(data) {
+	    			// 		$.each(data, function(index, item) {
+	    			// 			if (item.majorid == data1.majorid) {
+	    			// 				body.find('#majorid1').append($("<option>").attr("value",item.majorid).attr("selected","selected").text(item.majorname));
+								// }else  {
+								// 	body.find('#majorid1').append($("<option>").attr("value",item.majorid).text(item.majorname));
+								// }
+	    			// 		});
+	    			// 		iframeWin.layui.form.render("select");
+	    			// 	}
+	    			// });
+	    		  }
+	    	 });
+	        
+	    }
+        
       }
     });
     

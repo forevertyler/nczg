@@ -1,0 +1,134 @@
+<script  src="../assets/js/header.js"></script>
+    <title>打卡</title>
+    <style>
+    .title {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      font-size: 17px;
+      color: #030303;
+    }
+
+    .back {
+      width: 12px;
+      height: 21px;
+      margin-left: 10px;
+    }
+
+    h4 {
+      flex: 1;
+      text-align: center;
+    }
+
+    #allmap {
+      width: 100%;
+      height: 400px;
+    }
+
+    .circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #fafafa;
+      text-align: center;
+      margin: 80px auto;
+      font-size: 12px;
+      box-shadow: 0 0 0 15px rgba(48, 52, 207, 0.5),
+        0 0 0 30px rgba(48, 52, 207, 0.3),
+        0 0 0 45px rgba(48, 52, 207, 0.1);
+    }
+
+    .time {
+      padding-top: 20px;
+      font-size: 14px;
+    }
+</style>
+</head>
+<body class="layui-view-body">
+    <div class="layui-content">
+        <div class="layui-row">
+        
+            <div class="title">
+			      <img src="../../images/back.png" alt="" class="back" />
+			      <h4>地点打卡</h4>
+			</div>
+			<div id="allmap"></div>
+			<div class="circle" onclick="punch()">
+			      <div class="time"></div>
+			      <div>地点打卡</div>
+			</div>
+            
+        </div>
+    </div>
+<script src="../assets/js/footer.js"></script>
+<!-- <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&amp;ak=ofrEsOYB1CTMwAZn8sSfcrciSo7rAdKO"></script> -->
+<script src="https://api.map.baidu.com/api?v=2.0&ak=ofrEsOYB1CTMwAZn8sSfcrciSo7rAdKO&s=1" type="text/javascript"></script>
+<script type="text/javascript">
+layui.use(['element', 'laydate','table','upload'], function(){
+    	var table = layui.table
+    	,admin = layui.element
+    	,laydate = layui.laydate
+    	, $ = layui.jquery
+    	,upload = layui.upload;
+		var time = document.querySelector('.time')
+		var myDate = new Date();
+		time.innerHTML = myDate.getHours() + ':' + myDate.getMinutes(); // 获取当前时间
+
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point();
+		// var point = new BMap.Point(116.404, 39.915);
+		map.centerAndZoom(point, 15);
+		var pointAttendance
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function (r) {
+		     if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+		            var mk = new BMap.Marker(r.point);
+		            // map.addOverlay(mk); // 标出自己的当前所在地
+		            map.panTo(r.point); // 地图中心移动到自己的当前位置
+		            point = new BMap.Point(r.point.lng, r.point.lat); // 获取自己当前位置经纬度
+
+		            var coordinate = "122.064492,37.527488";// 设置考勤点经纬度 
+		            var arr = coordinate.split(",");// 切割经纬度
+		            var lon = arr[0];
+		            var lat = arr[1];
+		            pointAttendance = new BMap.Point(lon, lat);
+		            var circle = new BMap.Circle(pointAttendance, 500, { // 考勤地点范围
+		                  fillColor: "blue", // 圆形颜色
+		                  strokeWeight: 1,
+		                  fillOpacity: 0.2,
+		                  strokeOpacity: 0.2
+		            });
+		            map.addOverlay(circle);
+		            var r = new BMap.Marker(pointAttendance);
+		            map.addOverlay(r); // 标出考勤点的位置
+		         } else {
+		            alert('failed' + this.getStatus());
+		          }
+		  }, { enableHighAccuracy: true })
+
+		// 签到
+		function signIn() {
+		    var distance = map.getDistance(point, pointAttendance).toFixed(2);
+		    if (distance <= 500) {
+		      this.GetLocation()
+		    } else {
+		      alert("超出考勤地点范围，签到失败")
+		    }
+		}
+
+		// 地址逆解析
+		function GetLocation() { 
+		    var geoc = new BMap.Geocoder();
+		    geoc.getLocation(point, function (rs) {// 获取当前定位所在详细地址
+		            var addComp = rs.addressComponents;
+		            var address = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+		            alert("您已在" + address + "签到成功")
+		    });
+		}
+
+		// 点击签到
+		function punch() {
+		    this.signIn()
+		}
+})
+</script>

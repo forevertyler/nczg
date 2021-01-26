@@ -18,17 +18,83 @@
 		}
 
 		#btnScreenshot {
-		  font-size: 22px;
-		  padding: 8px 10px;
-		  border: 2px solid #ccc;
-		  border-radius: 10px;
+		  font-size: 20px;
 		}
 
 		.video-screenshot {
-		  display: grid;
+			width: 90%;
+			height: calc(100% - 2em);
+			margin: 0 auto;
+		  /*display: grid;
 		  grid-template-columns: 1fr 1fr;
-		  grid-column-gap: 10px;
+		  grid-column-gap: 10px;*/
 		}
+		#screenshotsContainer img{
+			margin-top: 20px;
+			border-radius: 10px;
+		}
+		 @media screen and (max-width: 800px) {
+		 	.layui-btn-lg {
+			  /*  height: 88px;
+			    line-height: 88px;
+			    padding: 0 25px;*/
+			    /*font-size: 32px;*/
+			}
+		 }
+		 .cover_logo{
+	         width: 100%;
+	         height: 100%;
+	         position: fixed;
+	         top:0;
+	         left:0;
+	         right:0;
+	         bottom:0;
+	         z-index: 10000;
+	         display: none;
+	         color: #fff;
+
+	       }
+	       .cover_logo div{
+	         width: 100%;
+	         height: 100%;
+	         position: relative;
+	        
+	       }
+	       .cover_logo div div{
+	         position: absolute;
+	         top:0;
+	         left:0;
+	         right:0;
+	         bottom:0;
+	         z-index: 30;
+	         background-color: #000;
+	         opacity: .8;
+	         /*font-size: 4rem;*/
+
+
+	       }
+	      
+	       .tcc{
+	       	width: 40%;
+	       	height: 40vh;
+	       }
+	       #tc{
+	       	width: 20rem;
+	       	height: 2em;
+	       	margin: 0 auto;
+	       	margin-top: 40%;
+	       }
+	       #tc span{
+	       	width: 40%;
+	       	height: 3rem;
+	       	line-height: 3rem;
+	       	background-color: teal;
+	       	padding:.5rem;
+	       	border-radius: 8px;
+	       }
+	       #tc span:nth-child(1){
+				/*margin-right:2rem;*/
+	       }
 
 	
     </style>
@@ -40,28 +106,43 @@
             <div class="layui-card">
 		          <div class="layui-card-header">工作汇报</div>
 		          <div class="layui-card-body">
+		          <span style="color:#aaa;">*点击拍照区域进行拍照，拍照成功的照片双击照片可进行删除重拍</span>
 						<div class="btns">
-						  
-						  <button class="button" id="btnScreenshot">
-						    <i class="iconfont icon-camera">获取照片</i>
-						  </button>
-						  
+						 <!--  <button type="button" class="layui-btn layui-btn-lg"  id="btnScreenshot">
+						    <i class="layui-icon">&#xe65d;</i>
+						  </button> -->
 						</div>
 						<div class="video-screenshot">
 						  <video autoplay id="video"></video>
-						  <div>
+						  <div>	
+						  <form action="">
+						 	 <button id="shangchuan" type="button" class="layui-btn layui-btn-lg"><i class="layui-icon"></i>上传照片</button>
+						  
+
 						    <div id="screenshotsContainer">
 						      <canvas id="canvas" class="is-hidden"></canvas>
 						    </div>
 						  </div>
+						  </form>
 						</div>
-
-
 		          </div>
 		    </div>
             
         </div>
     </div>
+    <!-- 覆盖层 -->
+       <div class="cover_logo">
+	       <div>
+		       <div></div>
+			       <div class="tcc">
+			       <div style="text-align:center;font-size:3rem;padding:2rem;">确定删除？</div>
+			       <div id="tc">
+				       <span class="sure">确定</span>
+				       <span class="cancel">取消</span>
+			       </div>
+		       </div>
+	       </div>
+       </div>
 <script src="../assets/js/footer.js"></script>
 <script>
 layui.use(['element', 'laydate','table','upload'], function(){
@@ -102,28 +183,62 @@ layui.use(['element', 'laydate','table','upload'], function(){
 		  };
 	
 		  // 截图
-		  btnScreenshot.addEventListener("click", function () {
+		  // btnScreenshot.addEventListener("click", function () {
+		  video.addEventListener("click", function () {
 		  		
 		  		var parentDom=$('#screenshotsContainer').find("img");
 		  		var i=parentDom.length;
 		  	
 		  if (photoLength>i) {
-		  		
+		  		alert("拍照成功，下滑看看效果吧")
 		  		console.log(i)
 		  		let img = document.getElementById('screenshot');
 			    if (!img) {
 			      img = document.createElement("img");
-			      img.id = 'screenshot'+i;
+			      img.className = 'screenshot';
 			      img.style.width = '100%';
+			      // var closes = document.createElement("span");
+			      // closes.id = 'close'+i;
+			      // closes.class = 'closethis'
 			    }
 			    canvas.width = video.videoWidth;
 			    canvas.height = video.videoHeight;
 			    canvas.getContext("2d").drawImage(video, 0, 0);
 			    img.src = canvas.toDataURL("image/png");
 			    screenshotsContainer.prepend(img);
+			  }else{
+			  	alert("最多拍6张")
 			  }
-		    return i;
+		    // return i;
 		  });
+		  $('#screenshotsContainer').on('dblclick','img',function(){
+		  		$(".cover_logo").show();
+		  		var b = $(this)
+		  		$(".cover_logo").on('click','.sure',function(){
+		  			b.remove();
+		  			$(".cover_logo").hide();
+		  			
+		  		})
+		  		$(".cover_logo").on('click','.cancel',function(){
+		  			
+		  			$(".cover_logo").hide();
+		  			
+		  		})
+		  		
+		  });
+		  $("#shangchuan").click(function(){
+		  		var img_a = $("#screenshotsContainer").find("img").length;
+		  	
+		  		if(img_a>0){
+		  			alert("上传成功");
+		  			$("#screenshotsContainer").find("img").remove();
+		  		}else{
+		  			alert("请拍几张照片吧")
+		  		}
+
+		  	  
+		  	  
+		  })
 
 		  async function init() {
 		    // stopVideoStream();

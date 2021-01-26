@@ -2,54 +2,55 @@
 <link rel="stylesheet" href="../assets/css/style.css">
     <title></title>
     <style>
-        #left1,#center1,#cnt8tu{width:100%;height:300px;}
+        #left1,#center1,#cnt1tu,#cnt2tu{width:100%;height:300px;}
         /*.bgg{background: #000;}*/
         .bgg{
             background: #002140;
+        }
+        .layui-card-header{
+            color:#fff;
         }
     </style>
 
 </head>
 <body class="layui-view-body">
     <div class="layui-content">
-        <div class="layui-row">
-        
-            <div class="layui-col-md6">
-				<div class="layui-card bgg">
-					<div class="layui-card-header">各渠道受理占比</div>
-					<div class="layui-card-body">
-						<div id="left1"></div>
-					</div>
-				</div>
-            </div>
-            <div class="layui-col-md6">
-
- 				<div class="layui-card bgg">
-					<div class="layui-card-header">烟台地图</div>
-					<div class="layui-card-body">
-						<div id="center1"></div>
-					</div>
-				</div>
-            </div>
-            <div class="layui-col-md6">
-                <!-- cnt8 -->
-                 <div class="layui-card bgg main_cnt2">
-                    <div class=" layui-card-header">各区县企业各月份注册情况分析
+        <div class="layui-row layui-col-space10">
+           
+            <div class="layui-col-md6 layui-col-sm12">
+                <!-- cnt1 -->
+                 <div class="layui-card bgg main_cnt2 cnt1">
+                    <div class=" layui-card-header" >保洁员
                     <div class="dropcnt ">
                         <span>2020</span>
                         <i>&or;</i>
                         <ul>
-                            <li onclick="dropCnt8(2020)">2020</li>
-                            <li onclick="dropCnt8(2019)">2019</li>
+                            <li onclick="dropCnt1(2020)">2020</li>
+                            <li onclick="dropCnt1(2019)">2019</li>
                         </ul>
                     </div></div>
                     <div class="layui-card-body">
-                        <div id="cnt8tu"></div>
+                        <div id="cnt1tu"></div>
                     </div>
                 </div>
-
-
-			</div>
+            </div>
+            <div class="layui-col-md6 layui-col-sm12">
+                <!-- cnt2 -->
+                 <div class="layui-card bgg main_cnt2 cnt2">
+                    <div class=" layui-card-header" >垃圾车
+                    <div class="dropcnt ">
+                        <span>2020</span>
+                        <i>&or;</i>
+                        <ul>
+                            <li onclick="dropCnt2(2020)">2020</li>
+                            <li onclick="dropCnt2(2019)">2019</li>
+                        </ul>
+                    </div></div>
+                    <div class="layui-card-body">
+                        <div id="cnt2tu"></div>
+                    </div>
+                </div>
+            </div>
             
         </div>
     </div>
@@ -60,122 +61,13 @@
 <script type="text/javascript" src="../assets/js/theme.js"></script>
 <script>
 layui.use(['table','element'], function(){
-	var table = layui.table
-	,$ = layui.$;
-	var element = layui.element;
-	// var $ = layui.$;
-	// 右1
-    var left1tuChart = echarts.init(document.getElementById('left1'));
-    left1 = {
-        title : {
-            show: false,
-            text: '',
-            x: 25,
-            y: 15,
-            textStyle: {
-                color: '#fff',
-                fontWeight:'normal',
-                fontSize: fsA
-            }
-        },
-        color: themes[10],
-        tooltip : {
-            trigger: 'item',
-            formatter: "{b} : <br/>{c} ({d}%)"
-        },
-        legend: {
-            show: true,
-            top: 30,
-            right: 40,
-            itemWidth: 14,
-            itemGap: 20,
-            orient: 'vertical',
-            textStyle: {
-                color: themes[10]
-            },
-            data: ['12345', '12315', '有问有答', '来信', '其他']
-        },
-        series : [
-            {
-                name: '',
-                type: 'pie',
-                radius : ['20%','55%'],
-                center: ['40%', '50%'],
-                roseType: 'area',
-                data:[
-                    {value:30, name:'12345'},
-                    {value:35, name:'12315'},
-                    {value:40, name:'有问有答'},
-                    {value:25, name:'来信'},
-                    {value:25, name:'其他'}
-                ],
-                label:{
-                    show:true,
-                    position:'outside',
-                    formatter: '{b} {d}%',
-                    textStyle: {
-                        fontSize: 14
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        labelLine: {
-                            length: 10
-                        }
-                    }
-                }
-            }
-        ]
-    };
-    left1tuChart.setOption(left1);
-
-    // 定时自动高亮
-    pieAutoMouse(left1,left1tuChart,3500);
-    var center1tuChart = echarts.init(document.getElementById('center1'));
-    // center1 = {
-
-    	$.getJSON("../assets/js/yt.json", function(geoJson) {//#1
-			echarts.registerMap('烟台', geoJson);//#2
-			let option = {
-				series: [
-					{
-						name: '烟台地图',
-						type: 'map',
-						mapType: '烟台',//#3
-						itemStyle:{
-							normal: {
-                                label: {
-                                    show: false,//默认是否显示省份名称    
-                                },
-
-								areaColor:"#ccebeb",//默认的地图板块颜色
-                              
-                                borderWidth:1,
-                                borderColor:'#1ea0a0',
-                            },
-						    emphasis: {
-                                label: {
-                                    show: false,//选中状态是否显示省份名称
-                                },
-                                areaColor:"#4cc1f6",//选中状态的地图板块颜色
-                                
-                            },
-						},
-						// data:[{name: '南京', value: 100}],//#4
-						// nameMap: {'南京市': '南京'}//#5
-					}
-				]
-			}
-			center1tuChart.setOption(option);
-		})
-    // }
-    // center1tuChart.setOption(center1);
-
-    // // 定时自动高亮
-    // pieAutoMouse(center1,center1tuChart,3500);
-    // cnt8
-    var cnt8tuChart = echarts.init(document.getElementById('cnt8tu'));
-    cnt8tu = {
+    var table = layui.table
+    ,$ = layui.$;
+    var element = layui.element;
+    
+    // cnt1
+    var cnt1tuChart = echarts.init(document.getElementById('cnt1tu'));
+    cnt1tu = {
         title : {
             show: false,
             text: '',
@@ -220,7 +112,8 @@ layui.use(['table','element'], function(){
                 data : ['2020-01','2020-02','2020-03','2020-04','2020-05','2020-06','2020-07','2020-08','2020-09','2020-10','2020-11','2020-12'],
                 axisLabel:{
                     color: corT,
-                    fontSize:14
+                    fontSize:14,
+                    interval: 0 
                 },
                 axisLine:{
                     lineStyle:{
@@ -261,7 +154,7 @@ layui.use(['table','element'], function(){
             handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
             handleSize: '80%',
             textStyle: {
-                color: '#333'
+                color: '#fff'
             },
             handleStyle: {
                 color: '#fff',
@@ -363,9 +256,9 @@ layui.use(['table','element'], function(){
             }
         ]
     };
-    cnt8tuChart.setOption(cnt8tu);
- dropCnt8 = function (cls){ 
-    // function dropCnt8(cls){
+    cnt1tuChart.setOption(cnt1tu);
+ dropCnt1 = function (cls){ 
+    // function dropCnt1(cls){
         var dates = [];
         var datas = [];
         if(cls == 2020){
@@ -394,12 +287,166 @@ layui.use(['table','element'], function(){
             ];
         }
         
-        cnt8tuChart.setOption({
+        cnt1tuChart.setOption({
             xAxis: [{data: dates}],
             series: datas
         });
-        chartsReset(cnt8tuChart);
+        chartsReset(cnt1tuChart);
     };
+    // cnt2
+    var cnt2tuChart = echarts.init(document.getElementById('cnt2tu'));
+    cnt2tu = {
+        title : {
+            show: false,
+            text: '',
+            x: 20,
+            y: 20,
+            textStyle: {
+                color: '#fff',
+                fontWeight:'normal',
+                fontSize: fsB
+            }
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {
+                type : 'shadow'
+            }
+        },
+        color: themes[6],
+        grid: {
+            left: 10,
+            right: 15,
+            bottom: 40,
+            top: 40,
+            containLabel: true,
+        },
+        legend: {
+            show: true,
+            top: 0,
+            right: 10,
+            itemWidth: 12,
+            itemHeight: 12,
+            itemGap: 5,
+            textStyle: {
+                fontSize: 12 ,
+                color: themes[6]
+            },
+            data: ['垃圾车1','垃圾车2']
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ['2020-01','2020-02','2020-03','2020-04','2020-05','2020-06','2020-07','2020-08','2020-09','2020-10','2020-11','2020-12'],
+                axisLabel:{
+                    color: corT,
+                    fontSize:14,
+                    interval: 0 
+                },
+                axisLine:{
+                    lineStyle:{
+                        color: corL
+                    }
+                },
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                minInterval:50,
+                axisLabel:{
+                    color: corT,
+                    fontSize:14,
+                },axisLine:{
+                    lineStyle:{
+                        color: corL
+                    }
+                },splitLine: {
+                    show:true,
+                    lineStyle:{
+                        type:'solid',
+                        width: 1,
+                        color: corL
+                    }
+                }
+            }
+        ],
+        dataZoom: [{
+            type: 'inside',
+            startValue: 8,
+            endValue: 11,
+        }, {
+            handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            handleSize: '80%',
+            textStyle: {
+                color: '#fff'
+            },
+            handleStyle: {
+                color: '#fff',
+                shadowBlur: 3,
+                shadowColor: 'rgba(0, 0, 0, 0.6)',
+                shadowOffsetX: 2,
+                shadowOffsetY: 2
+            }
+        }],
+        series : [
+            {
+                name:'垃圾车1',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]
+            },{
+                name:'垃圾车2',
+                type: 'bar',
+                smooth: true,
+                barWidth: 8,
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 0, 0, 0],
+                    }
+                },
+                data: [60, 120, 130, 90, 60, 80,60, 120, 130, 90, 60, 120]
+            }
+           
+        ]
+    };
+    cnt2tuChart.setOption(cnt2tu);
+ dropCnt2 = function (cls){ 
+    // function dropCnt2(cls){
+        var dates = [];
+        var datas = [];
+        if(cls == 2020){
+            dates = ['2020-01','2020-02','2020-03','2020-04','2020-05','2020-06','2020-07','2020-08','2020-09','2020-10','2020-11','2020-12'];
+            datas = [
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+                {data: [160, 120, 100, 130, 120, 130,160, 120, 100, 130, 120, 80]},
+            
+            ];
+        }else if(cls == 2019){
+            dates = ['2019-01','2019-02','2019-03','2019-04','2019-05','2019-06','2019-07','2019-08','2019-09','2019-10','2019-11','2019-12'];
+            datas = [
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+                {data: [60, 120, 140, 160, 190, 140,60, 120, 140, 160, 190, 120]},
+             
+            ];
+        }
+        
+        cnt2tuChart.setOption({
+            xAxis: [{data: dates}],
+            series: datas
+        });
+        chartsReset(cnt2tuChart);
+    };
+
 
 })
 </script>

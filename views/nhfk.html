@@ -54,14 +54,14 @@
 	$('#fankui').on('click', function(){
 		var fankuiArea = $(".layui-textarea1").val();
 		var nowTime = new Date(); var year=nowTime.getFullYear(); var month=nowTime.getMonth()+1; var day=nowTime.getDate();
-		console.log(year)
+		console.log(nowTime)
 		 var nowdate=year+"-"+month+"-"+day;
 		if (fankuiArea=="") {
 			return;
 		}else{
 			var str= "<div class='show'>";
 			str += "<div >";
-			str += "用户名:";
+			str += "用户名：大熊";
 			str += "</div>"
 			str += "<div >";
 			str += fankuiArea;
@@ -70,15 +70,14 @@
 			str += nowdate;
 			str += "</div>"
 			str += "</div>"
+			str += "<hr></hr>"
 			$(".main").append(str);
 			$(".layui-textarea1").val("");
 		}
-		
-    	
     })
 
     //选完文件后不自动上传
-	  upload.render({
+	upload.render({
 	    elem: '#xzwj'
 	    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
 	    ,auto: false
@@ -89,7 +88,7 @@
 	      layer.msg('上传成功');
 	      // console.log(res)
 	    }
-	  });
+	});
 	
     
     });
