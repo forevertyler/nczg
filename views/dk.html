@@ -49,7 +49,7 @@
         <div class="layui-row">
         
             <div class="title">
-			      <img src="../../images/back.png" alt="" class="back" />
+			      <!-- <img src="../../images/back.png" alt="" class="back" /> -->
 			      <h4>地点打卡</h4>
 			</div>
 			<div id="allmap"></div>
@@ -107,7 +107,8 @@ layui.use(['element', 'laydate','table','upload'], function(){
 		  }, { enableHighAccuracy: true })
 
 		// 签到
-		function signIn() {
+		// function signIn() {
+		signIn=function() {
 		    var distance = map.getDistance(point, pointAttendance).toFixed(2);
 		    if (distance <= 500) {
 		      this.GetLocation()
@@ -117,7 +118,8 @@ layui.use(['element', 'laydate','table','upload'], function(){
 		}
 
 		// 地址逆解析
-		function GetLocation() { 
+		GetLocation=function() {
+		// function GetLocation() { 
 		    var geoc = new BMap.Geocoder();
 		    geoc.getLocation(point, function (rs) {// 获取当前定位所在详细地址
 		            var addComp = rs.addressComponents;
@@ -127,7 +129,8 @@ layui.use(['element', 'laydate','table','upload'], function(){
 		}
 
 		// 点击签到
-		function punch() {
+		// function punch() {
+		punch=function() {
 		    this.signIn()
 		}
 })
